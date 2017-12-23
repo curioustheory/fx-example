@@ -3,6 +3,7 @@ A simple end-to-end forex prediction example
 
 This project is built using python 3.5.2
 
+sample data here: http://www.histdata.com/
 
 ## Installation
 

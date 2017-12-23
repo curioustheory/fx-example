@@ -2,8 +2,17 @@ from forex.util import load_config, load_data
 
 
 def run(config_file_path):
-    print("reading configuration file... ")
-    config = load_config(config_file_path=config_file_path)
+    try:
+        print("reading configuration file... ")
+        config = load_config(config_file_path=config_file_path)
+
+
+
+
+
+    except Exception as e:
+        print(e)
+
     print("loading dataframe...")
     print("---------------------------------------------------------------------------------------------")
     dataframe = load_data(input_file_path=config["input_file_path"], input_file_header=config["input_file_header"])
