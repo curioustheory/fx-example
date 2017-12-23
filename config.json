@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "input_file_path": "../data/DAT_MT_AUDUSD_M1_201711.csv",
+  "input_file_header": [
+    "date",
+    "time",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume"
+  ],
+  "process_eda":"True"
+
+}
