@@ -1,31 +1,43 @@
+import pandas as pd
+
+from forex.chartutil import plot_time_series
+
+
 class ExploratoryDataAnalysis:
-
-    """
-    random sampling
-    basic description / stats / data profiling / data quality check
-        missing value (backfill time with value)
-        outlier (how to deal with this)
-    pattern in data
-    """
-
 
     def __init__(self, dataframe):
         self.dataframe = dataframe
 
     def run(self):
-        pass
+        # shape
+        print("no. of rows:", self.dataframe.shape[0])
+        print("no. of columns:", self.dataframe.shape[1])
+        print()
 
-    def _describe_data(self):
-        pass
+        # describe data
+        data_summary = self.dataframe.describe()
+        print(data_summary)
+
+        # preprocess the date and time
+        self.dataframe["datetime"] = pd.to_datetime(self.dataframe["date"] + " " + self.dataframe["time"],
+                                                    format="%Y.%m.%d %H:%M")
+        self.dataframe = self.dataframe.drop(["date", "time", "volume"], axis=1)
+        print(self.dataframe.head())
+        print()
+
+        # gaussian check
+        # TODO:
+        self._is_gaussian()
+        print("Normal Distribution: ")
+
+        # plot time series
+        x = self.dataframe["datetime"]
+        y = self.dataframe.drop(["datetime"], axis=1)
+        plot_time_series(x, y, "Time Series Plot")
+
+        # plot distribution from summary
+
+        # feature correlation
 
     def _is_gaussian(self, column_name):
-        pass
-
-    def _is_invariant(self):
-        pass
-
-
-
-    def _plot(self):
-        # TODO: write multiple files to disk
         pass

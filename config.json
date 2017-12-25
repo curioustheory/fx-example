@@ -10,6 +10,7 @@
     "close",
     "volume"
   ],
-  "process_eda":"True"
+  "process_eda":"True",
+  "features":[]
 
 }
