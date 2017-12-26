@@ -11,6 +11,7 @@
     "volume"
   ],
   "process_eda":"True",
-  "features":[]
+  "cache_data":"True",
+  "selected_features":[]
 
 }

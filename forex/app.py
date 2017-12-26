@@ -2,6 +2,7 @@ import pandas as pd
 
 from forex.eda import ExploratoryDataAnalysis
 from forex.util import load_config, load_data
+from forex.featureengineering import FeatureEngineering
 
 
 def run(config_file_path):
@@ -10,7 +11,17 @@ def run(config_file_path):
         config = load_config(config_file_path=config_file_path)
         print("loading dataframe...")
         print("---------------------------------------------------------------------------------------------")
-        dataframe = load_data(input_file_path=config["input_file_path"], input_file_header=config["input_file_header"])
+        dataframe = load_data(input_file_path=config["input_file_path"],
+                              input_file_header=config["input_file_header"])
+        print(dataframe.head())
+        print()
+
+        print("data prep...")
+        print("\t sort out datetime format and removing volume")
+        print("---------------------------------------------------------------------------------------------")
+        engineering = FeatureEngineering(dataframe)
+        engineering.prep_data()
+        dataframe = engineering.get_dataframe()
         print(dataframe.head())
         print()
 
@@ -21,22 +32,30 @@ def run(config_file_path):
             eda.run()
             print()
 
+        print("feature engineering...")
+        print("---------------------------------------------------------------------------------------------")
+        engineering.engineer_features()
+        dataframe = engineering.get_dataframe()
+        print(dataframe.head())
+        print()
+
+        print("modelling...")
+        print("---------------------------------------------------------------------------------------------")
+        if config["cache_data"].lower() == "true":
+            pass
+        print()
+
+        print("validation...")
+        print("---------------------------------------------------------------------------------------------")
+
+
     except Exception as e:
         print(e)
 
 
 """
-
-        print("feature engineering...")
-        print("---------------------------------------------------------------------------------------------")
-        engineering = FeatureEngineering(dataframe)
-        engineering.run()
-        dataframe = engineering.get_dataframe()
-        print()
-
         # check feature correlation
         # TODO:
-        
 
         print("running models...")
         print("---------------------------------------------------------------------------------------------")
