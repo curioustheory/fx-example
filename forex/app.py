@@ -6,7 +6,7 @@ from forex.featureengineering import FeatureEngineering
 
 
 def run(config_file_path):
-    try:
+    # try:
         print("reading configuration file... ")
         config = load_config(config_file_path=config_file_path)
         print("loading dataframe...")
@@ -16,11 +16,11 @@ def run(config_file_path):
         print(dataframe.head())
         print()
 
-        print("data prep...")
+        print("data prep / engineering...")
         print("\t sort out datetime format and removing volume")
         print("---------------------------------------------------------------------------------------------")
         engineering = FeatureEngineering(dataframe)
-        engineering.prep_data()
+        engineering.run()
         dataframe = engineering.get_dataframe()
         print(dataframe.head())
         print()
@@ -32,13 +32,6 @@ def run(config_file_path):
             eda.run()
             print()
 
-        print("feature engineering...")
-        print("---------------------------------------------------------------------------------------------")
-        engineering.engineer_features()
-        dataframe = engineering.get_dataframe()
-        print(dataframe.head())
-        print()
-
         print("modelling...")
         print("---------------------------------------------------------------------------------------------")
         if config["cache_data"].lower() == "true":
@@ -49,8 +42,8 @@ def run(config_file_path):
         print("---------------------------------------------------------------------------------------------")
 
 
-    except Exception as e:
-        print(e)
+    # except Exception as e:
+    #     print(e)
 
 
 """
