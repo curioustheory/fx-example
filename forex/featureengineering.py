@@ -6,12 +6,21 @@ class FeatureEngineering:
     def __init__(self, dataframe):
         self.dataframe = dataframe
 
-    def prep_data(self):
+    def run(self):
+        self._prep_data()
+        self._clean()
+        self._engineer_features()
+
+    def _prep_data(self):
+        """
+        clean up data
+        :return:
+        """
         self.dataframe["datetime"] = pd.to_datetime(self.dataframe["date"] + " " + self.dataframe["time"],
                                                     format="%Y.%m.%d %H:%M")
         self.dataframe = self.dataframe.drop(["date", "time", "volume"], axis=1)
 
-    def fill_na(self):
+    def _clean(self):
         # remove invariant
 
         # outlier
@@ -19,8 +28,11 @@ class FeatureEngineering:
         # fill na
         pass
 
-    def engineer_features(self):
+    def _engineer_features(self):
+        # percentage changes
+        self.dataframe["percentage_change"] = self.dataframe["close"].pct_change()
         # high low spread
+        self.dataframe["spread"] = self.dataframe["high"] - self.dataframe["low"]
 
         # avg. 1 hour
 
