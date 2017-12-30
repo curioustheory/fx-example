@@ -1,6 +1,5 @@
 {
   "version": "0.0.1",
-  "input_file_path": "../data/DAT_MT_AUDUSD_M1_201711.csv",
   "input_file_header": [
     "date",
     "time",
@@ -10,8 +9,8 @@
     "close",
     "volume"
   ],
-  "process_eda":"True",
-  "cache_data":"True",
-  "selected_features":[]
-
+  "train_input_file_path": "../data/DAT_MT_AUDUSD_M1_201711.csv",
+  "test_input_file_path": "../data/DAT_MT_AUDUSD_M1_201711.csv",
+  "process_eda": "True",
+  "plot_chart":"True"
 }
