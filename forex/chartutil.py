@@ -1,7 +1,10 @@
 import matplotlib.pyplot as plt
+import scipy.stats as stats
 
 
-def plot_histogram(x, x_label="", y_label="", bins=20, heading="", mean=0.0):
+def plot_histogram(x, x_label="", y_label="", bins=20, heading="", mean=0.0, std=0.0):
+    normal_distribution = stats.norm.pdf(x, mean, std)
+    plt.plot(x, normal_distribution, '-')
     plt.hist(x, bins)
     plt.title(heading)
     plt.xlabel(x_label)
