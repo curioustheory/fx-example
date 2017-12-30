@@ -7,11 +7,13 @@ class ExploratoryDataAnalysis:
     def __init__(self, dataframe):
         self._dataframe = dataframe
         self._data_summary = None
+        self._feature_correlation = None
 
-    def run(self):
+    def run(self, plot_chart=True):
         self._summarise_data()
-        self._plot_chart()
         self._check_feature_correlation()
+        if plot_chart:
+            self._plot_chart()
 
     def _summarise_data(self):
         # shape
@@ -67,13 +69,19 @@ class ExploratoryDataAnalysis:
         plt.subplots_adjust(left=0.2, wspace=0.8, top=0.8)
         plt.show()
 
+        plt.matshow(self._feature_correlation)
+        plt.xticks(range(len(self._feature_correlation.columns)), self._feature_correlation.columns)
+        plt.yticks(range(len(self._feature_correlation.columns)), self._feature_correlation.columns)
+        plt.show()
+
     def _check_feature_correlation(self):
-        corr = self._dataframe.corr()
+        self._feature_correlation = self._dataframe.corr()
         print("feature correlation...")
-        print(corr)
+        print(self._feature_correlation)
         print()
 
-        plt.matshow(corr)
-        plt.xticks(range(len(corr.columns)), corr.columns)
-        plt.yticks(range(len(corr.columns)), corr.columns)
-        plt.show()
+    def get_summary(self):
+        return self._data_summary
+
+    def get_feature_correlation(self):
+        return self._feature_correlation

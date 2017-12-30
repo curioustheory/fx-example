@@ -4,21 +4,21 @@ import pandas as pd
 class FeatureEngineering:
 
     def __init__(self, dataframe):
-        self.dataframe = dataframe
+        self._dataframe = dataframe
 
     def run(self):
         self._prep_data()
-        self._clean()
         self._engineer_features()
+        self._clean()
 
     def _prep_data(self):
         """
         clean up data
         :return:
         """
-        self.dataframe["datetime"] = pd.to_datetime(self.dataframe["date"] + " " + self.dataframe["time"],
-                                                    format="%Y.%m.%d %H:%M")
-        self.dataframe = self.dataframe.drop(["date", "time", "volume"], axis=1)
+        self._dataframe["datetime"] = pd.to_datetime(self._dataframe["date"] + " " + self._dataframe["time"],
+                                                     format="%Y.%m.%d %H:%M")
+        self._dataframe = self._dataframe.drop(["date", "time", "volume"], axis=1)
 
     def _clean(self):
         # remove invariant
@@ -30,9 +30,9 @@ class FeatureEngineering:
 
     def _engineer_features(self):
         # percentage changes
-        self.dataframe["percentage_change"] = self.dataframe["close"].pct_change()
+        self._dataframe["percentage_change"] = self._dataframe["close"].pct_change()
         # high low spread
-        self.dataframe["spread"] = self.dataframe["high"] - self.dataframe["low"]
+        self._dataframe["spread"] = self._dataframe["high"] - self._dataframe["low"]
 
         # avg. 1 hour
 
@@ -40,12 +40,5 @@ class FeatureEngineering:
 
         # avg. 12 hour
 
-        # flippening
-
-        pass
-
-    def cache_data(self):
-        pass
-
     def get_dataframe(self):
-        return self.dataframe
+        return self._dataframe
