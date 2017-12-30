@@ -15,17 +15,6 @@ class ExploratoryDataAnalysis:
         if plot_chart:
             self._plot_chart()
 
-    def _summarise_data(self):
-        # shape
-        print("no. of rows:", self._dataframe.shape[0])
-        print("no. of columns:", self._dataframe.shape[1])
-        print()
-
-        # describe data
-        self._data_summary = self._dataframe.describe()
-        print(self._data_summary)
-        print()
-
     def _plot_chart(self):
         # plot distribution from summary
         x = self._dataframe["close"]
@@ -74,11 +63,11 @@ class ExploratoryDataAnalysis:
         plt.yticks(range(len(self._feature_correlation.columns)), self._feature_correlation.columns)
         plt.show()
 
+    def _summarise_data(self):
+        self._data_summary = self._dataframe.describe()
+
     def _check_feature_correlation(self):
         self._feature_correlation = self._dataframe.corr()
-        print("feature correlation...")
-        print(self._feature_correlation)
-        print()
 
     def get_summary(self):
         return self._data_summary
