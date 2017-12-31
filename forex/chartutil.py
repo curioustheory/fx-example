@@ -20,3 +20,10 @@ def plot_time_series(x, y, x_label="", y_label="", heading="", mean=0.0):
     plt.ylabel(y_label)
     plt.axhline(y=mean, color='r', linestyle='--', label="Median")
     plt.legend()
+
+
+def plot_feature_correlation(feature_correlation, heading):
+    plt.matshow(feature_correlation)
+    plt.title(heading)
+    plt.xticks(range(len(feature_correlation.columns)), feature_correlation.columns)
+    plt.yticks(range(len(feature_correlation.columns)), feature_correlation.columns)
