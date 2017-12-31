@@ -1,4 +1,4 @@
-from forex.chartutil import plot_time_series, plot_histogram
+from forex.chartutil import plot_time_series, plot_histogram, plot_feature_correlation
 import matplotlib.pyplot as plt
 
 
@@ -58,9 +58,7 @@ class ExploratoryDataAnalysis:
         plt.subplots_adjust(left=0.2, wspace=0.8, top=0.8)
         plt.show()
 
-        plt.matshow(self._feature_correlation)
-        plt.xticks(range(len(self._feature_correlation.columns)), self._feature_correlation.columns)
-        plt.yticks(range(len(self._feature_correlation.columns)), self._feature_correlation.columns)
+        plot_feature_correlation(self._feature_correlation, "Feature Correlation")
         plt.show()
 
     def _summarise_data(self):
