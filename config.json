@@ -11,6 +11,7 @@
   ],
   "train_input_file_path": "../data/DAT_MT_AUDUSD_M1_201711.csv",
   "test_input_file_path": "../data/DAT_MT_AUDUSD_M1_201711.csv",
-  "process_eda": "True",
-  "plot_chart":"True"
+  "process_eda": "False",
+  "plot_chart":"False",
+  "correlation_limit":"0.95"
 }

@@ -12,6 +12,7 @@ def run(config_file_path):
     input_file_header = config["input_file_header"]
     process_eda = config["process_eda"].lower() == "true"
     plot_chart = config["plot_chart"].lower() == "true"
+    correlation_limit = float(config["correlation_limit"])
 
     print("loading dataframe...")
     print("---------------------------------------------------------------------------------------------")
@@ -45,7 +46,7 @@ def run(config_file_path):
 
     print("modelling...")
     print("---------------------------------------------------------------------------------------------")
-    modelling = Modelling(dataframe)
+    modelling = Modelling(dataframe, correlation_limit)
     modelling.run()
     model = modelling.get_optimum_model()
     print()
