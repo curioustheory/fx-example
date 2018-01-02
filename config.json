@@ -18,7 +18,7 @@
     20,
     50
   ],
-  "nn_max_iter": 50000,
+  "nn_max_iter": 10000,
   "nn_activation": "identity",
   "nn_verbose": true,
   "nn_shuffle": false,
