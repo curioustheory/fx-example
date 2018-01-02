@@ -9,10 +9,10 @@ class ExploratoryDataAnalysis:
         self._data_summary = None
         self._feature_correlation = None
 
-    def run(self, plot_chart=True):
+    def run(self, plot_eda_chart=True):
         self._summarise_data()
         self._check_feature_correlation()
-        if plot_chart:
+        if plot_eda_chart:
             self._plot_chart()
 
     def _plot_chart(self):

@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from sklearn.neural_network import MLPRegressor
 
 from forex.util import drop_highly_correlated_features
+import numpy as np
 
 
 class Modelling:
@@ -13,9 +14,22 @@ class Modelling:
         self._model = None
         self._learning_curve = None
 
-    def run(self):
+    def run(self,
+            alpha,
+            hidden_layer_sizes,
+            max_iter,
+            shuffle,
+            activation,
+            verbose,
+            learning_rate):
         self._prep()
-        self._train_model()
+        self._train_model(alpha,
+                          hidden_layer_sizes,
+                          max_iter,
+                          shuffle,
+                          activation,
+                          verbose,
+                          learning_rate)
 
     def _prep(self):
         self._remove_outlier()
@@ -24,14 +38,12 @@ class Modelling:
 
     def _fill_na(self):
         self._dataframe = self._dataframe.fillna(method='backfill')
+        self._dataframe = self._dataframe.fillna(method='ffill')
 
     def _remove_outlier(self):
         outlier = self._eda_summary["spread"]["75%"]
         print("remove high volatile trades / outliers where spread > {}".format(outlier))
         self._dataframe = self._dataframe[self._dataframe["spread"] <= outlier]
-
-    def _scale_feature(self):
-        pass
 
     def _split_train_test_data(self):
         y = self._dataframe["close"]
@@ -56,46 +68,67 @@ class Modelling:
         print()
         return self._X_train, self._y_train, self._X_test, self._y_test
 
-    def _train_model(self):
+    def _train_model(self,
+                     alpha=0.01,
+                     hidden_layer_sizes=(10,),
+                     max_iter=5000,
+                     shuffle=False,
+                     activation='logistic',
+                     verbose='True',
+                     learning_rate='adaptive'):
         print("Training MLPRegressor:")
         X_train, y_train, X_test, y_test = self._split_train_test_data()
-        mlp_regressor = MLPRegressor(alpha=0.001,
-                                     hidden_layer_sizes=(10, 20, 10),
-                                     max_iter=5000,
-                                     shuffle=False,
-                                     activation='logistic',
-                                     verbose='True',
-                                     learning_rate='adaptive')
+        mlp_regressor = MLPRegressor(alpha=alpha,
+                                     hidden_layer_sizes=hidden_layer_sizes,
+                                     max_iter=max_iter,
+                                     shuffle=shuffle,
+                                     activation=activation,
+                                     verbose=verbose,
+                                     learning_rate=learning_rate)
         model = mlp_regressor.fit(X_train, y_train)
+        print(model)
         self._model = model
         self._learning_curve = model.loss_curve_
 
         y_hat_train = model.predict(X_train)
         y_hat_test = model.predict(X_test)
+        residual_train = abs(y_hat_train - y_train)
+        residual_test = abs(y_hat_test - y_test)
         loss_curve = mlp_regressor.loss_curve_
 
-        self._plot_result(y_train, y_hat_train, y_test, y_hat_test, loss_curve)
+        self._plot_result(y_train, y_hat_train, y_test, y_hat_test, loss_curve, residual_train, residual_test)
 
-    def _plot_result(self, y_train, y_hat_train, y_test, y_hat_test, loss_curve):
-        plt.subplot(3, 1, 1)
+    def _plot_result(self, y_train, y_hat_train, y_test, y_hat_test, loss_curve, residual_train, residual_test):
+        plt.subplot(4, 1, 1)
         plt.title("Training Set")
         plt.plot(y_train)
         plt.plot(y_hat_train, "--")
-        plt.legend(["actual", "prediction"])
+        plt.legend(["Actual", "Prediction"])
 
-        plt.subplot(3, 1, 2)
+        plt.subplot(4, 1, 2)
+        plt.title("Training Set Residual (Lower the better)")
+        plt.plot(residual_train)
+        plt.axhline(y=np.mean(residual_train), color='r', linestyle='--', label="Mean")
+        plt.legend(["Residual", "Mean"])
+
+        plt.subplot(4, 1, 3)
         plt.title("Test Set")
         plt.plot(y_test)
         plt.plot(y_hat_test, "--")
-        plt.legend(["actual", "prediction"])
+        plt.legend(["Actual", "Prediction"])
 
-        plt.subplot(3, 1, 3)
-        plt.title("Loss Curve over Iteration")
-        plt.plot(loss_curve)
+        plt.subplot(4, 1, 4)
+        plt.title("Test Set Residual (Lower the better)")
+        plt.plot(residual_test)
+        plt.axhline(y=np.mean(residual_test), color='r', linestyle='--', label="Mean")
+        plt.legend(["Residual", "Mean"])
 
         plt.subplots_adjust(left=0.2, wspace=0.8, top=0.8)
         plt.tight_layout()
+        plt.show()
 
+        plt.title("Loss Curve over Iteration")
+        plt.plot(loss_curve)
         plt.show()
 
     def get_model(self):

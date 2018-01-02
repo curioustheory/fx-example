@@ -1,5 +1,5 @@
 # py-forex
-A simple end-to-end forex prediction example
+A simple end-to-end forex prediction example using Linear Regression
 
 This project is built using python 3.5.2
 
@@ -13,6 +13,7 @@ python app.py [optional] config path
 ### Tests
 python -m unittest discover
 
+we want to predict the next closing price
 
 ## Features
 * configuration file
@@ -20,3 +21,8 @@ python -m unittest discover
 * exploratory data analysis / summary
 * modelling
 * model validation
+
+## TODO
+* Feature Scaling
+* Recurrent Neural Network
+* More features

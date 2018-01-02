@@ -9,9 +9,16 @@ def run(config_file_path):
     config = load_config(config_file_path=config_file_path)
     input_file_path = config["input_file_path"]
     input_file_header = config["input_file_header"]
-    plot_chart = config["plot_chart"]
+    plot_eda_chart = config["plot_eda_chart"]
     correlation_limit = config["correlation_limit"]
     train_size = config["train_size"]
+    nn_alpha = config["nn_alpha"]
+    nn_hidden_layer_sizes = config["nn_hidden_layer_sizes"]
+    nn_max_iter = config["nn_max_iter"]
+    nn_shuffle = config["nn_shuffle"]
+    nn_activation = config["nn_activation"]
+    nn_verbose = config["nn_verbose"]
+    nn_learning_rate = config["nn_learning_rate"]
 
     print("loading dataframe...")
     print("---------------------------------------------------------------------------------------------")
@@ -32,7 +39,7 @@ def run(config_file_path):
     print("loading exploratory analysis...")
     print("---------------------------------------------------------------------------------------------")
     eda = ExploratoryDataAnalysis(dataframe)
-    eda.run(plot_chart)
+    eda.run(plot_eda_chart)
     print("no. of rows:", dataframe.shape[0])
     print("no. of columns:", dataframe.shape[1])
     print()
@@ -45,10 +52,15 @@ def run(config_file_path):
     print("modelling...")
     print("---------------------------------------------------------------------------------------------")
     modelling = Modelling(dataframe, eda.get_summary(), train_size, correlation_limit)
-    modelling.run()
+    modelling.run(nn_alpha,
+                  nn_hidden_layer_sizes,
+                  nn_max_iter,
+                  nn_shuffle,
+                  nn_activation,
+                  nn_verbose,
+                  nn_learning_rate)
     print()
 
 
 if __name__ == "__main__":
-    # if selfarg[]
     run(config_file_path="../config.json")

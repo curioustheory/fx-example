@@ -1,5 +1,6 @@
 {
   "version": "0.0.1",
+  "input_file_path": "../data/DAT_MT_AUDUSD_M1_201711.csv",
   "input_file_header": [
     "date",
     "time",
@@ -9,17 +10,17 @@
     "close",
     "volume"
   ],
-  "input_file_path": "../data/DAT_MT_AUDUSD_M1_201711.csv",
-  "plot_chart": false,
+  "plot_eda_chart": false,
   "correlation_limit": 0.95,
-  "train_size": 0.66,
+  "train_size": 0.8,
   "nn_alpha": 0.001,
   "nn_hidden_layer_sizes": [
-    10
+    20,
+    50
   ],
   "nn_max_iter": 50000,
-  "nn_activation": "logistic",
+  "nn_activation": "identity",
   "nn_verbose": true,
-  "nn_learning_rate": "adaptive",
-  "model_validation": true
+  "nn_shuffle": false,
+  "nn_learning_rate": "adaptive"
 }
