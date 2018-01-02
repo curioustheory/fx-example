@@ -10,7 +10,7 @@
     "close",
     "volume"
   ],
-  "plot_eda_chart": false,
+  "plot_eda_chart": true,
   "correlation_limit": 0.95,
   "train_size": 0.8,
   "nn_alpha": 0.001,
