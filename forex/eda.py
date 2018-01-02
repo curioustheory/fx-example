@@ -56,6 +56,7 @@ class ExploratoryDataAnalysis:
                          mean=self._data_summary["percentage_change"]["mean"])
 
         plt.subplots_adjust(left=0.2, wspace=0.8, top=0.8)
+        plt.tight_layout()
         plt.show()
 
         plot_feature_correlation(self._feature_correlation, "Feature Correlation")

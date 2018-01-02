@@ -18,7 +18,7 @@ class FeatureEngineering:
         self._dataframe["datetime"] = pd.to_datetime(self._dataframe["date"] + " " + self._dataframe["time"],
                                                      format="%Y.%m.%d %H:%M")
         self._dataframe = self._dataframe.drop(["date", "time", "volume"], axis=1)
-        # fill na
+        self._dataframe = self._dataframe.sort_values(by=["datetime"])
 
     def _engineer_features(self):
         """
