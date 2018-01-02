@@ -8,10 +8,11 @@ class FeatureEngineering:
 
     def run(self):
         """
-        this is the main method to execute the data prep and feature engineering.
+        execute the data prep and feature engineering.
         """
         self._prep_data()
         self._engineer_features()
+        self._fill_na()
 
     def _prep_data(self):
         """
@@ -41,6 +42,13 @@ class FeatureEngineering:
         self._dataframe["rolling_mean_24h"] = self._dataframe["close"].rolling(window=60 * 24).mean()
         # rolling avg. 7 days
         self._dataframe["rolling_mean_7d"] = self._dataframe["close"].rolling(window=60 * 24 * 7).mean()
+
+    def _fill_na(self):
+        """
+        fill the NaN / NA backwards, then forward
+        """
+        self._dataframe = self._dataframe.fillna(method='backfill')
+        self._dataframe = self._dataframe.fillna(method='ffill')
 
     def get_dataframe(self):
         """

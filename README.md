@@ -1,19 +1,15 @@
 # py-forex
-A simple end-to-end forex prediction example using Linear Regression
+A simple end-to-end forex prediction example using Scikit-Learn. We want to predict the next closing price.
 
 This project is built using python 3.5.2
 
-sample data here: http://www.histdata.com/
-
-## Installation
+Sample data can be downloaded here: http://www.histdata.com
 
 ### Running the projects
-python app.py [optional] config path
+run app.py
 
 ### Tests
 python -m unittest discover
-
-we want to predict the next closing price
 
 ## Features
 * configuration file

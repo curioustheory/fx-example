@@ -38,7 +38,6 @@ def run(config_file_path):
     print()
 
     print("data prep / engineering...")
-    print("\t sort out datetime format and removing volume")
     print("---------------------------------------------------------------------------------------------")
     engineering = FeatureEngineering(dataframe)
     engineering.run()

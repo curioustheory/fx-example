@@ -1,5 +1,4 @@
-from forex.chartutil import plot_time_series, plot_histogram, plot_feature_correlation
-import matplotlib.pyplot as plt
+from forex import chartutil
 
 
 class ExploratoryDataAnalysis:
@@ -10,66 +9,36 @@ class ExploratoryDataAnalysis:
         self._feature_correlation = None
 
     def run(self, plot_eda_chart=True):
+        """
+        execute the data summary and visualising the charts.
+
+        :param plot_eda_chart: enable the visualisation of the eda chart
+        """
         self._summarise_data()
         self._check_feature_correlation()
         if plot_eda_chart:
-            self._plot_chart()
-
-    def _plot_chart(self):
-        # plot distribution from summary
-        x = self._dataframe["close"]
-        plot_histogram(x=x,
-                       x_label="Price",
-                       y_label="Count",
-                       bins=50,
-                       heading="Histogram of Closing Price",
-                       mean=self._data_summary["close"]["mean"],
-                       std=self._data_summary["close"]["std"])
-        plt.show()
-
-        # plot time series
-        x = self._dataframe["datetime"]
-        # select closing price
-        y = self._dataframe["close"]
-        plt.subplot(3, 1, 1)
-        plot_time_series(x=x,
-                         y=y,
-                         y_label="Price",
-                         heading="Closing Price",
-                         mean=self._data_summary["close"]["mean"])
-
-        # plot spread between high and low / volatility
-        plt.subplot(3, 1, 2)
-        y = self._dataframe["spread"]
-        plot_time_series(x=x,
-                         y=y,
-                         y_label="Volatility",
-                         mean=self._data_summary["spread"]["mean"])
-
-        # plot spread between changes
-        plt.subplot(3, 1, 3)
-        y = self._dataframe["percentage_change"]
-        plot_time_series(x=x,
-                         y=y,
-                         x_label="Datetime",
-                         y_label="Percentage",
-                         mean=self._data_summary["percentage_change"]["mean"])
-
-        plt.subplots_adjust(left=0.2, wspace=0.8, top=0.8)
-        plt.tight_layout()
-        plt.show()
-
-        plot_feature_correlation(self._feature_correlation, "Feature Correlation")
-        plt.show()
+            chartutil.plot_eda_chart(self._dataframe, self._data_summary, self._feature_correlation)
 
     def _summarise_data(self):
+        """
+        describes the data
+        """
         self._data_summary = self._dataframe.describe()
 
     def _check_feature_correlation(self):
+        """
+        calculates the feature correlation
+        """
         self._feature_correlation = self._dataframe.corr()
 
     def get_summary(self):
+        """
+        returns the data summary
+        """
         return self._data_summary
 
     def get_feature_correlation(self):
+        """
+        returns the feature correlation matrix
+        """
         return self._feature_correlation
