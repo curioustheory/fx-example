@@ -5,6 +5,17 @@ from forex.util import load_config, load_data
 
 
 def run(config_file_path):
+    """
+    runs the entire data pipeline consisting of:
+        - loading config
+        - loading data
+        - data engineering
+        - exploratory data analysis
+        - modelling
+
+    :param config_file_path: the path of the configuration file
+    :return:
+    """
     print("reading configuration file... ")
     config = load_config(config_file_path=config_file_path)
     input_file_path = config["input_file_path"]
@@ -15,7 +26,6 @@ def run(config_file_path):
     nn_alpha = config["nn_alpha"]
     nn_hidden_layer_sizes = config["nn_hidden_layer_sizes"]
     nn_max_iter = config["nn_max_iter"]
-    nn_shuffle = config["nn_shuffle"]
     nn_activation = config["nn_activation"]
     nn_verbose = config["nn_verbose"]
     nn_learning_rate = config["nn_learning_rate"]
@@ -43,9 +53,10 @@ def run(config_file_path):
     print("no. of rows:", dataframe.shape[0])
     print("no. of columns:", dataframe.shape[1])
     print()
+    print("data summary:")
     print(eda.get_summary())
     print()
-    print("feature correlation...")
+    print("feature correlation:")
     print(eda.get_feature_correlation())
     print()
 
@@ -55,7 +66,6 @@ def run(config_file_path):
     modelling.run(nn_alpha,
                   nn_hidden_layer_sizes,
                   nn_max_iter,
-                  nn_shuffle,
                   nn_activation,
                   nn_verbose,
                   nn_learning_rate)
