@@ -21,6 +21,5 @@
   "nn_max_iter": 10000,
   "nn_activation": "identity",
   "nn_verbose": true,
-  "nn_shuffle": false,
   "nn_learning_rate": "adaptive"
 }
