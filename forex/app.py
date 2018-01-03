@@ -68,7 +68,6 @@ def run(config_file_path):
                   nn_activation,
                   nn_verbose,
                   nn_learning_rate)
-    print()
 
 
 if __name__ == "__main__":
