@@ -2,13 +2,13 @@ import numpy as np
 from sklearn.neural_network import MLPRegressor
 
 from forex import chartutil
-from forex.util import drop_highly_correlated_features, split_train_test_data
+from forex.util import split_train_test_data
 
 
 class Modelling:
-    def __init__(self, dataframe, train_size, correlation_limit=0.95):
-        self._dataframe = dataframe
-        self._correlation_limit = correlation_limit
+    def __init__(self, X, y, train_size):
+        self._X = X
+        self._y = y
         self._train_size = train_size
         self._model = None
 
@@ -24,11 +24,7 @@ class Modelling:
         :param learning_rate: types of learning i.e. adaptive
         """
         print("Training MLPRegressor:")
-        y = self._dataframe["close"]
-        X = drop_highly_correlated_features(self._dataframe.drop(["close", "datetime"], axis=1),
-                                            self._correlation_limit)
-        X_train, y_train, X_test, y_test = split_train_test_data(X, y, self._train_size)
-
+        X_train, y_train, X_test, y_test = split_train_test_data(self._X, self._y, self._train_size)
         mlp_regressor = MLPRegressor(alpha=alpha,
                                      hidden_layer_sizes=hidden_layer_sizes,
                                      max_iter=max_iter,

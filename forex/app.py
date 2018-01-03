@@ -1,7 +1,7 @@
 from forex.eda import ExploratoryDataAnalysis
 from forex.featureengineering import FeatureEngineering
 from forex.modelling import Modelling
-from forex.util import load_config, load_data
+from forex.util import load_config, load_data, drop_highly_correlated_features
 
 
 def run(config_file_path):
@@ -59,16 +59,18 @@ def run(config_file_path):
     print(eda.get_feature_correlation())
     print()
 
-    print("removing outlier...")
+    print("preparing for modelling...")
     print("---------------------------------------------------------------------------------------------")
     outlier = eda.get_summary()["spread"]["75%"]
     print("remove high volatile trades / outliers where spread > {}".format(outlier))
     dataframe = dataframe[dataframe["spread"] <= outlier]
+    y = dataframe["close"]
+    X = drop_highly_correlated_features(dataframe.drop(["close", "datetime"], axis=1), correlation_limit)
     print()
 
     print("modelling...")
     print("---------------------------------------------------------------------------------------------")
-    modelling = Modelling(dataframe, train_size, correlation_limit)
+    modelling = Modelling(X, y, train_size)
     modelling.run(nn_alpha,
                   nn_hidden_layer_sizes,
                   nn_max_iter,
