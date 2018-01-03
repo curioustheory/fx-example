@@ -5,10 +5,17 @@ This project is built using python 3.5.2
 
 Sample data can be downloaded here: http://www.histdata.com
 
-### Running the projects
+## Library Dependencies
+* pandas
+* scipy
+* sklearn
+* matplotlib
+* numpy
+
+## Running the projects
 run forex/app.py
 
-### Tests
+## Tests
 python -m unittest discover
 
 ## Features
