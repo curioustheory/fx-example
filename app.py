@@ -80,4 +80,4 @@ def run(config_file_path):
 
 
 if __name__ == "__main__":
-    run(config_file_path="../config.json")
+    run(config_file_path="./config.json")
