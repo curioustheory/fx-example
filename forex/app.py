@@ -59,9 +59,16 @@ def run(config_file_path):
     print(eda.get_feature_correlation())
     print()
 
+    print("removing outlier...")
+    print("---------------------------------------------------------------------------------------------")
+    outlier = eda.get_summary()["spread"]["75%"]
+    print("remove high volatile trades / outliers where spread > {}".format(outlier))
+    dataframe = dataframe[dataframe["spread"] <= outlier]
+    print()
+
     print("modelling...")
     print("---------------------------------------------------------------------------------------------")
-    modelling = Modelling(dataframe, eda.get_summary(), train_size, correlation_limit)
+    modelling = Modelling(dataframe, train_size, correlation_limit)
     modelling.run(nn_alpha,
                   nn_hidden_layer_sizes,
                   nn_max_iter,

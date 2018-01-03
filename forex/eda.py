@@ -17,7 +17,7 @@ class ExploratoryDataAnalysis:
         self._summarise_data()
         self._check_feature_correlation()
         if plot_eda_chart:
-            chartutil.plot_eda_chart(self._dataframe, self._data_summary, self._feature_correlation)
+            chartutil.plot_eda_chart(self._dataframe, self._feature_correlation)
 
     def _summarise_data(self):
         """
