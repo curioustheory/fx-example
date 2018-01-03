@@ -6,7 +6,7 @@ This project is built using python 3.5.2
 Sample data can be downloaded here: http://www.histdata.com
 
 ### Running the projects
-run app.py
+run forex/app.py
 
 ### Tests
 python -m unittest discover
@@ -14,7 +14,8 @@ python -m unittest discover
 ## Features
 * configuration file
 * data ingestion
-* exploratory data analysis / summary
+* feature engineering
+* exploratory data analysis
 * modelling
 * model validation
 
