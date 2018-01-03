@@ -13,20 +13,17 @@ Sample data can be downloaded here: http://www.histdata.com
 * numpy
 
 ## Running the projects
-run forex/app.py
-
-## Tests
-python -m unittest discover
+1. git clone https://github.com/curioustheory/py-forex.git
+2. run py app.py
 
 ## Features
-* configuration file
-* data ingestion
+* configuration file 
 * feature engineering
 * exploratory data analysis
 * modelling
 * model validation
 
-## TODO
+## Future Work
 * Feature Scaling
 * Recurrent Neural Network
 * More features
