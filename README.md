@@ -1,5 +1,5 @@
 # py-forex
-A simple end-to-end forex prediction example using Scikit-Learn. We want to predict the next closing price.
+A simple end-to-end forex prediction example using Scikit-Learn to predict the next closing price.
 
 This project is built using python 3.5.2
 
@@ -23,3 +23,4 @@ python -m unittest discover
 * Feature Scaling
 * Recurrent Neural Network
 * More features
+* Optimise Model
